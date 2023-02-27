@@ -4,6 +4,9 @@ import UserExistsError from "../errors/UserExistsError";
 import UserNotFoundError from "../errors/UserNotFoundError";
 import UnauthorizedError from "../errors/UnauthorizedError";
 import NotFoundError from "../errors/NotFoundError";
+import knex from "../db/db";
+import { User as UserType } from "../models/User/types";
+import { UpdateUserData, CreateUserData } from "../types/types";
 
 class User {
   passwordService: any;
@@ -12,28 +15,65 @@ class User {
     this.passwordService = new PasswordService();
   }
 
-  public signUp = async (
-    email: string,
-    password: string,
-    username?: string
-  ) => {
-    return true;
+  public signUp = async (data: CreateUserData) => {
+    data.password = this.passwordService.createHash(data.password);
+
+    return knex("users").insert({
+      ...data,
+    });
   };
 
   public login = async (email: string, password: string) => {
-    return {
-      accessToken: "",
-      refreshToken: "",
-      fingerprint: "",
-    };
+    const users: UserType[] = await knex
+      .select("*")
+      .from("users")
+      .where({ email });
+
+    const user = users[0];
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    const loggedIn = this.passwordService.compare(password, user.password);
+
+    if (loggedIn) {
+      const jwtService = new JWT();
+
+      return {
+        accessToken: await jwtService.createAccessToken(user.id, user.password),
+        refreshToken: await jwtService.createRefreshToken(
+          user.id,
+          user.password
+        ),
+        fingerprint: jwtService.getFingerprint(),
+      };
+    } else {
+      throw new UnauthorizedError();
+    }
   };
 
   public checkIfUserExists = async (email: string) => {
-    return true;
+    const existingUser = await knex
+      .select("id")
+      .from("users")
+      .where({ email })
+      .first();
+    return !!existingUser;
   };
 
   public delete = async (id: string) => {
-    return true;
+    return knex("users").where({ id }).delete();
+  };
+
+  public update = async (id: number, data: UpdateUserData) => {
+    if (data.password) {
+      data.password = this.passwordService.createHash(data.password);
+    }
+
+    return knex("users")
+      .where({ id })
+      .update({ ...data });
   };
 }
 
