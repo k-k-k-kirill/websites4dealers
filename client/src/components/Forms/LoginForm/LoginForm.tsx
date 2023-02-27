@@ -1,17 +1,12 @@
 import React from "react";
 import "./LoginForm.scss";
-import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid e-mail.").required("Email is required."),
-  password: Yup.string().required("Password field is required."),
-});
+import LoginSchema from "./schema";
 
 interface LoginFormValues {
   email?: string;

@@ -1,5 +1,6 @@
 import api from "../api";
 import BaseStorage from "./ApiBase";
+import { SignupFormValues } from "../components/Forms/SignupForm/SignupForm";
 
 class User extends BaseStorage {
   module;
@@ -16,10 +17,9 @@ class User extends BaseStorage {
     });
   };
 
-  signUp = (email?: string, password?: string) => {
+  signUp = (data: SignupFormValues) => {
     return api.post(`/${this.module}/signup`, {
-      email,
-      password,
+      ...data,
     });
   };
 }

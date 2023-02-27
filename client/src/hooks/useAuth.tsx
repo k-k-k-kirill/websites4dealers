@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import userStorage from "../api/User";
 import { useDispatch } from "react-redux";
 import { uiSetNotification } from "../redux/notification/slice";
+import { SignupFormValues } from "../components/Forms/SignupForm/SignupForm";
 
 export default () => {
   const navigate = useNavigate();
@@ -23,11 +24,12 @@ export default () => {
     }
   };
 
-  const signup = async (email: string, password: string) => {
+  const signup = async (data: SignupFormValues) => {
     try {
-      await userStorage.signUp(email, password);
-      await login(email, password);
+      await userStorage.signUp(data);
+      await login(data.email, data.password);
     } catch (error) {
+      dispatch(uiSetNotification("Failed to create new account."));
       throw new Error("Failed to sign up.");
     }
   };
