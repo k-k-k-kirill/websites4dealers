@@ -1,9 +1,8 @@
 import PasswordService from "./Password";
 import JWT from "../services/JWT";
-import UserExistsError from "../errors/UserExistsError";
+import SomethingWentWrongError from "../errors/SomethingWentWrongError";
 import UserNotFoundError from "../errors/UserNotFoundError";
 import UnauthorizedError from "../errors/UnauthorizedError";
-import NotFoundError from "../errors/NotFoundError";
 import knex from "../db/db";
 import { User as UserType } from "../models/User/types";
 import { UpdateUserData, CreateUserData } from "../types/types";
@@ -17,9 +16,24 @@ class User {
 
   public signUp = async (data: CreateUserData) => {
     data.password = this.passwordService.createHash(data.password);
+    await knex.transaction(async (trx) => {
+      try {
+        let results = await trx("users").insert({
+          ...data,
+        });
+        const userId = results[0];
 
-    return knex("users").insert({
-      ...data,
+        results = await trx("roles").select("*").where({ name: "standard" });
+        //@ts-ignore
+        const roleId = results[0].id;
+
+        await trx("users_roles").insert({
+          user_id: userId,
+          role_id: roleId,
+        });
+      } catch (err) {
+        throw new SomethingWentWrongError();
+      }
     });
   };
 
