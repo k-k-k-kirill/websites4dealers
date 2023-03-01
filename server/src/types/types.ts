@@ -1,5 +1,4 @@
 export interface UpdateUserData {
-  username?: string;
   password?: string;
   email?: string;
   first_name?: string;
@@ -13,7 +12,6 @@ export interface UpdateUserData {
 }
 
 export interface CreateUserData {
-  username: string;
   password: string;
   email: string;
   first_name: string;

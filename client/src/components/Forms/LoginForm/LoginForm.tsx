@@ -24,6 +24,8 @@ const LoginForm = () => {
         validationSchema={LoginSchema}
         initialValues={{ email: "", password: "" }}
         onSubmit={loginUser}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {({ errors, values, handleChange, handleBlur }) => (
           <Form>

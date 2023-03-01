@@ -11,7 +11,6 @@ import SignupSchema from "./schema";
 export interface SignupFormValues {
   email: string;
   password: string;
-  username: string;
   first_name: string;
   last_name: string;
   company: string;
@@ -31,7 +30,6 @@ const SignupForm: React.FC = () => {
         validationSchema={SignupSchema}
         initialValues={{
           email: "",
-          username: "",
           first_name: "",
           last_name: "",
           company: "",
@@ -42,6 +40,8 @@ const SignupForm: React.FC = () => {
           zip_code: "",
           password: "",
         }}
+        validateOnBlur={false}
+        validateOnChange={false}
         onSubmit={(values: SignupFormValues) => {
           signup(values);
         }}
@@ -60,20 +60,6 @@ const SignupForm: React.FC = () => {
                 required
                 error={!!errors.email}
                 helperText={errors.email || ""}
-              />
-            </Box>
-            <Box sx={{ marginBottom: "1rem" }}>
-              <TextField
-                value={values.username}
-                sx={{ width: "100%" }}
-                id="username"
-                label="Username"
-                variant="outlined"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                required
-                error={!!errors.username}
-                helperText={errors.username || ""}
               />
             </Box>
             <Box sx={{ marginBottom: "1rem" }}>
@@ -121,14 +107,14 @@ const SignupForm: React.FC = () => {
             <Box sx={{ marginBottom: "1rem" }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Typography variant="h6">Address</Typography>
+                  <Typography variant="h6">Business address</Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
                     value={values.street}
                     sx={{ width: "100%" }}
                     id="street"
-                    label="Street"
+                    label="Business street address"
                     variant="outlined"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -200,7 +186,7 @@ const SignupForm: React.FC = () => {
                 value={values.password}
                 sx={{ width: "100%" }}
                 id="password"
-                label="Password"
+                label="Password (min. 8)"
                 variant="outlined"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -218,7 +204,7 @@ const SignupForm: React.FC = () => {
               }}
             >
               <Typography>
-                You can <Link to="login">log in</Link> if you already have an
+                You can <Link to="/login">log in</Link> if you already have an
                 account
               </Typography>
               <Button type="submit" variant="contained">

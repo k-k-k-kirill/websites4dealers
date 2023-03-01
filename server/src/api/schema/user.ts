@@ -4,19 +4,8 @@ export default {
   createUser: [
     body("email").isEmail(),
     body("password")
-      .isLength({ min: 10 })
-      .withMessage("Password must be at least 10 chars.")
-      .matches(/\d/)
-      .withMessage("Password must contain a number.")
-      .matches(/[A-Z]/)
-      .withMessage("Password must containd at least one uppercase letter.")
-      .matches(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)
-      .withMessage("Password must contain at least one special character."),
-    body("username")
-      .isString()
-      .withMessage("Username is required.")
-      .isLength({ min: 1, max: 50 })
-      .withMessage("Username must be between 1 and 50 characters long."),
+      .isLength({ min: 8 })
+      .withMessage("Password must be at least 8 chars."),
     body("first_name")
       .isString()
       .withMessage("First name is required.")
@@ -54,20 +43,8 @@ export default {
     body("id").isNumeric().withMessage("User id is required."),
     body("email").isEmail().optional(),
     body("password")
-      .isLength({ min: 10 })
-      .withMessage("Password must be at least 10 chars.")
-      .matches(/\d/)
-      .withMessage("Password must contain a number.")
-      .matches(/[A-Z]/)
-      .withMessage("Password must containd at least one uppercase letter.")
-      .matches(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)
-      .withMessage("Password must contain at least one special character.")
-      .optional(),
-    body("username")
-      .isString()
-      .withMessage("Username must be string.")
-      .isLength({ min: 1, max: 50 })
-      .withMessage("Username must be between 1 and 50 characters long.")
+      .isLength({ min: 8 })
+      .withMessage("Password must be at least 8 chars.")
       .optional(),
     body("first_name")
       .isString()

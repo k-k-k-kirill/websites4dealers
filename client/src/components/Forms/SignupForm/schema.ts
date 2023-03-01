@@ -2,8 +2,9 @@ import * as Yup from "yup";
 
 export default Yup.object().shape({
   email: Yup.string().email("Invalid e-mail.").required("Email is required."),
-  username: Yup.string().required("Username is required."),
-  password: Yup.string().required("Password field is required."),
+  password: Yup.string()
+    .required("Password field is required.")
+    .min(8, "Password must be at least 8 characters long"),
   first_name: Yup.string()
     .matches(/^[a-zA-Z]+$/, "First name must contain only letters")
     .required("First name is required."),

@@ -4,6 +4,7 @@ dotenv.config();
 
 export default {
   SERVER_PORT: process.env.SERVER_PORT,
+  SERVER_HOST: process.env.SERVER_HOST,
   DATABASE_USER: process.env.DATABASE_USER,
   DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
   DATABASE_NAME: process.env.DATABASE_NAME,
