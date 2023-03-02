@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./Centered.scss";
 
 interface CenteredProps {
-  children: any;
+  children: ReactNode;
 }
 
 const Centered: React.FC<CenteredProps> = ({ children }) => (

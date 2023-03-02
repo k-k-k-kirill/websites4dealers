@@ -4,7 +4,9 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Dashboard from "./views/Dashboard";
+import Inventory from "./views/Inventory/Inventory";
+import LineItems from "./views/LineItems/LineItems";
+import WebBlog from "./views/WebBlog/WebBlog";
 
 const darkTheme = createTheme({});
 
@@ -16,7 +18,9 @@ const App: React.FC<AppStateProps> = () => {
       <CssBaseline />
       <Routes>
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/lineitems" element={<LineItems />} />
+        <Route path="/webblog" element={<WebBlog />} />
         <Route path="/" element={<Login />} />
         <Route path="*" element={<Login />} />
       </Routes>

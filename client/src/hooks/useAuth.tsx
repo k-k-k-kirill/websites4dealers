@@ -17,7 +17,7 @@ export default () => {
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
 
-      navigate("/dashboard");
+      navigate("/inventory");
     } catch (error) {
       dispatch(uiSetNotification("Failed to login."));
       throw new Error("Failed to login.");
