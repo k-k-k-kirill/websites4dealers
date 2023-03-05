@@ -1,3 +1,5 @@
+import { NotificationType } from "./types";
+
 export enum UiAction {
   SetNotification = "notification/uiSetNotification",
 }
@@ -14,4 +16,9 @@ export interface UiSetNotificationAction {
 export interface SagaSetNotificationAction {
   type: UiAction.SetNotification;
   payload: string;
+}
+
+export interface NotificationActionPayload {
+  type: NotificationType;
+  message: string;
 }

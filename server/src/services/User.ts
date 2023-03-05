@@ -89,6 +89,12 @@ class User {
       .where({ id })
       .update({ ...data });
   };
+
+  public findById = async (id: string) => {
+    const user = await knex("users").select("*").where({ id });
+
+    return user[0];
+  };
 }
 
 export default new User();

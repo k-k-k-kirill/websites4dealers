@@ -1,21 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NotificationState } from "./types";
+import { NotificationActionPayload } from "./actions";
+import { NotificationState, NotificationType } from "./types";
 
 export const notification = createSlice({
   name: "session",
   initialState: {
+    type: NotificationType.Info,
     message: "",
   },
   reducers: {
-    uiSetNotification(state: NotificationState, action: PayloadAction<string>) {
-      state.message = action.payload;
+    uiSetNotification(
+      state: NotificationState,
+      action: PayloadAction<NotificationActionPayload>
+    ) {
+      state.type = action.payload.type;
+      state.message = action.payload.message;
     },
 
     sagaSetNotification(
       state: NotificationState,
-      action: PayloadAction<string>
+      action: PayloadAction<NotificationActionPayload>
     ) {
-      state.message = action.payload;
+      state.type = action.payload.type;
+      state.message = action.payload.message;
     },
   },
 });
@@ -24,6 +31,6 @@ export const notification = createSlice({
 export const { uiSetNotification, sagaSetNotification } = notification.actions;
 
 // Selectors
-export const getNotification = (state: any) => state.notification.message;
+export const getNotification = (state: any) => state.notification;
 
 export default notification.reducer;

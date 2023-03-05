@@ -2,7 +2,9 @@ import { FieldMetadata } from "./types";
 import { InitialValues, ValidationSchema } from "./types";
 import * as Yup from "yup";
 
-export const getInitialValues = (metadata: FieldMetadata[]) => {
+export const getInitialValues = (
+  metadata: FieldMetadata[]
+): { [key: string]: string } => {
   const values: InitialValues = {};
   metadata.forEach((item: FieldMetadata) => (values[item.key] = ""));
   return values;

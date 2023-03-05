@@ -19,11 +19,21 @@ class Api {
     return response.data;
   };
 
-  delete = async (url: string) => {
+  patch = async (url: string, params: any) => {
+    const response = await axios.patch(url, params, {
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken") || "",
+      },
+    });
+    return response.data;
+  };
+
+  delete = async (url: string, data: any) => {
     const response = await axios.delete(url, {
       headers: {
         Authorization: sessionStorage.getItem("accessToken") || "",
       },
+      data,
     });
     return response.data;
   };

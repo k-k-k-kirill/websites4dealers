@@ -5,6 +5,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { getNotification } from "../redux/notification/slice";
 import { useDispatch } from "react-redux";
 import { uiSetNotification } from "../redux/notification/slice";
+import { NotificationType } from "../redux/notification/types";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -20,13 +21,13 @@ interface WithNotificationProps {
 const WithNotification: React.FC<WithNotificationProps> = ({ children }) => {
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
 
-  const message = useSelector((state) => getNotification(state));
+  const { message, type } = useSelector((state) => getNotification(state));
 
   const dispatch = useDispatch();
 
   const onSnackbarClose = () => {
     setSnackbarOpen(false);
-    dispatch(uiSetNotification(""));
+    dispatch(uiSetNotification({ type: NotificationType.Info, message: "" }));
   };
 
   useEffect(() => {
@@ -45,11 +46,7 @@ const WithNotification: React.FC<WithNotificationProps> = ({ children }) => {
         autoHideDuration={6000}
         onClose={onSnackbarClose}
       >
-        <Alert
-          onClose={onSnackbarClose}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
+        <Alert onClose={onSnackbarClose} severity={type} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>

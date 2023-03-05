@@ -16,12 +16,6 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
   },
   {
-    label: "Year, make, model, body, style",
-    key: "VEHICLES_Year_Make_Model_Body_Style",
-    type: FieldType.Text,
-    required: true,
-  },
-  {
     label: "Year",
     key: "VEHICLES_Year",
     type: FieldType.Text,
@@ -52,7 +46,7 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
   },
   {
-    label: "Body style",
+    label: "Doors",
     key: "VEHICLES_Doors",
     type: FieldType.Text,
     required: true,
@@ -87,6 +81,7 @@ const fieldsMetadata: FieldMetadata[] = [
     type: FieldType.Text,
     required: true,
     validator: Yup.number()
+      .typeError("Current mileage must be a number.")
       .integer()
       .positive("Current mileage must be a positive number.")
       .required("Current mileage is required."),
@@ -122,6 +117,7 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
     validator: Yup.number()
       .integer()
+      .typeError("Price asking must be a number.")
       .positive("Price asking must be a positive number.")
       .required("Price asking is required."),
   },
@@ -162,6 +158,7 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
     validator: Yup.number()
       .integer()
+      .typeError("Days on market must be a number.")
       .positive("Days on market must be a positive number.")
       .required("Days on market is required."),
   },
@@ -178,6 +175,7 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
     validator: Yup.number()
       .integer()
+      .typeError("Location number market must be a number.")
       .positive("Location number must be a positive number.")
       .required("Location number is required."),
   },
@@ -200,6 +198,7 @@ const fieldsMetadata: FieldMetadata[] = [
     required: true,
     validator: Yup.number()
       .integer()
+      .typeError("Photo count must be a number.")
       .positive("Photo count must be a positive number.")
       .required("Photo count is required."),
   },

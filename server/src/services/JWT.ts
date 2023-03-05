@@ -3,6 +3,7 @@ import config from "../config";
 import makeId from "../helpers/makeId";
 import bcrypt from "bcryptjs";
 import UnauthorizedError from "../errors/UnauthorizedError";
+import userService from "./User";
 
 interface TokenPayload extends JwtPayload {
   userId: string;
@@ -55,7 +56,7 @@ export default class JWT {
       throw new UnauthorizedError();
     }
 
-    const user = { password: "" };
+    const user = await userService.findById(userId);
 
     if (!user) {
       throw new UnauthorizedError();
@@ -103,7 +104,7 @@ export default class JWT {
   getUserFromToken = async (token: string) => {
     const { userId } = this.decode(token);
     this.userId = userId;
-    const user = { password: "" };
+    const user = await userService.findById(userId);
     return user;
   };
 

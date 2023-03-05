@@ -1,19 +1,19 @@
 import React from "react";
 import Dashboard from "../Layouts/Dashboard";
-import InventoryForm from "../../components/Forms/InventoryForm/InventoryForm";
+import AddInventoryForm from "../../components/Forms/AddInventoryForm/AddInventoryForm";
 import { Box, Typography } from "@mui/material";
 
-const Inventory = () => {
+const AddInventory = () => {
   return (
     <Dashboard>
-      <Box sx={{ marginBottom: "1rem" }}>
+      <Box sx={{ marginBottom: "2rem" }}>
         <Typography variant="h4">Inventory</Typography>
       </Box>
       <Box>
-        <InventoryForm />
+        <AddInventoryForm />
       </Box>
     </Dashboard>
   );
 };
 
-export default Inventory;
+export default AddInventory;

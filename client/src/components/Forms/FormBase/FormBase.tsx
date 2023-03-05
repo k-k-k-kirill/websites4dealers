@@ -3,7 +3,6 @@ import { Formik, Form } from "formik";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import { FieldMetadata } from "../types";
-import { getInitialValues, getValidationSchema } from "../utils";
 import TextInput from "../TextInput";
 import { FieldType } from "../types";
 
@@ -11,16 +10,17 @@ interface FormBaseProps {
   metadata: FieldMetadata[];
   submitLabel: string;
   handleSubmit: any;
+  validationSchema: any;
+  initialValues: { [key: string]: string };
 }
 
 const FormBase: React.FC<FormBaseProps> = ({
   metadata,
   submitLabel,
   handleSubmit,
+  initialValues,
+  validationSchema,
 }) => {
-  const initialValues = getInitialValues(metadata);
-  const validationSchema = getValidationSchema(metadata);
-
   return (
     <>
       <Formik

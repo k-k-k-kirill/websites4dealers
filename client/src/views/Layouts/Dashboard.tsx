@@ -3,9 +3,8 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface DashboardProps {
   children: ReactNode;
@@ -18,8 +17,10 @@ const views = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
+  const location = useLocation();
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <Drawer
         sx={{
           width: "150px",
@@ -34,6 +35,7 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
       >
         {views.map((item) => (
           <Link
+            key={item.id}
             style={{
               textDecoration: "none",
               color: "black",
@@ -42,7 +44,7 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
             to={`/${item.id}`}
           >
             <ListItem key={item.id} disablePadding>
-              <ListItemButton>
+              <ListItemButton selected={location.pathname.includes(item.id)}>
                 <ListItemText primary={item.title} />
               </ListItemButton>
             </ListItem>
@@ -51,7 +53,11 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{
+          marginLeft: "150px",
+          bgcolor: "background.default",
+          p: 3,
+        }}
       >
         {children}
       </Box>

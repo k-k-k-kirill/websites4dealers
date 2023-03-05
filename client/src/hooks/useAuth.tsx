@@ -4,6 +4,7 @@ import userStorage from "../api/User";
 import { useDispatch } from "react-redux";
 import { uiSetNotification } from "../redux/notification/slice";
 import { SignupFormValues } from "../components/Forms/SignupForm/SignupForm";
+import { NotificationType } from "../redux/notification/types";
 
 export default () => {
   const navigate = useNavigate();
@@ -19,8 +20,13 @@ export default () => {
 
       navigate("/inventory");
     } catch (error) {
-      dispatch(uiSetNotification("Failed to login."));
-      throw new Error("Failed to login.");
+      dispatch(
+        uiSetNotification({
+          type: NotificationType.Error,
+          message: "Failed to login",
+        })
+      );
+      throw new Error("Failed to login");
     }
   };
 
@@ -29,7 +35,12 @@ export default () => {
       await userStorage.signUp(data);
       await login(data.email, data.password);
     } catch (error) {
-      dispatch(uiSetNotification("Failed to create new account."));
+      dispatch(
+        uiSetNotification({
+          type: NotificationType.Error,
+          message: "Failed to create new account.",
+        })
+      );
       throw new Error("Failed to sign up.");
     }
   };
