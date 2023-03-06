@@ -19,6 +19,26 @@ class Api {
     return response.data;
   };
 
+  postFormData = async (url: string, params: any) => {
+    const response = await axios.post(url, params, {
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken") || "",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  };
+
+  patchFormData = async (url: string, params: any) => {
+    const response = await axios.patch(url, params, {
+      headers: {
+        Authorization: sessionStorage.getItem("accessToken") || "",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  };
+
   patch = async (url: string, params: any) => {
     const response = await axios.patch(url, params, {
       headers: {

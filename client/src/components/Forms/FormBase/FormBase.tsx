@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { FieldMetadata } from "../types";
 import TextInput from "../TextInput";
 import { FieldType } from "../types";
+import TextArea from "../TextArea";
+import FileInput from "../FileInput";
 
 interface FormBaseProps {
   metadata: FieldMetadata[];
@@ -48,6 +50,26 @@ const FormBase: React.FC<FormBaseProps> = ({
                       required={field.required}
                     />
                   );
+                }
+
+                case FieldType.TextArea: {
+                  return (
+                    <TextArea
+                      id={field.key}
+                      label={field.label}
+                      key={field.key}
+                      value={values[field.key]}
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      showError={!!errors[field.key]}
+                      helperText={errors[field.key] || ""}
+                      required={field.required}
+                    />
+                  );
+                }
+
+                case FieldType.File: {
+                  return <FileInput id={field.key} label={field.label} />;
                 }
 
                 default: {

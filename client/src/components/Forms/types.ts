@@ -1,5 +1,7 @@
 export enum FieldType {
   Text = "text",
+  TextArea = "textArea",
+  File = "file",
 }
 
 export interface FieldMetadata {
